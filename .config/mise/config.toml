@@ -1,0 +1,11 @@
+[tools]
+node = "latest"
+watchexec = "latest"
+usage = "latest"
+go = "latest"
+python = ["latest", "2.7"]
+deno = "latest"
+java = "latest"
+
+[settings]
+experimental = true

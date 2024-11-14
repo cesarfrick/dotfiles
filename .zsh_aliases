@@ -1,0 +1,30 @@
+eval "$(zoxide init zsh)"
+alias code="/usr/local/bin/code-insiders"
+alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias nv=nvim
+alias lg=lazygit
+alias air="$HOME/go/bin/air"
+alias v="fd -t f -H -E .git | fzf-tmux -p --reverse | xargs nvim"
+alias gs="git branch | fzf-tmux -p --reverse | xargs git switch"
+alias czm="$HOME/bin/chezmoi"
+alias gauth="gcloud auth application-default login --no-launch-browser"
+alias ls="eza --icons=always"
+alias cd="z"
+alias yadm="$HOME/bin/yadm"
+
+# Nvim profile switcher
+alias lv="NVIM_APPNAME=LazyVim nvim"
+
+function nvs() {
+  items=("default" "LazyVim")
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config » " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z $config ]]; then
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+  fi
+  NVIM_APPNAME=$config nvim $@
+  XDG_CONFIG_HOME:-$HOME/.config/$@
+}
+
+bindkey -s ^n "nvs\n"
