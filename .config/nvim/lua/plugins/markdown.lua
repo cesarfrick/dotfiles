@@ -1,5 +1,6 @@
 return {
   "MeanderingProgrammer/markdown.nvim",
+  -- enabled = false,
   lazy = true,
   ft = { "markdown", "vimwiki" },
   name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim

@@ -4,7 +4,7 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local settings = require("core.settings")
 
 vim.env.PATH = vim.env.PATH .. node_bin .. ":"
-vim.g.python3_host_prog = py_venv .. "bin/python3"
+-- vim.g.python3_host_prog = py_venv .. "bin/python3"
 vim.g.node_host_prog = py_venv .. "node_modules/neovim/bin/cli.js"
 vim.g.user_emmet_mode = "n"
 vim.g.user_emmet_leader_key = ","

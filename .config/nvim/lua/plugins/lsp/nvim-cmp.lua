@@ -48,7 +48,7 @@ return {
         { name = "cmdline" },
         { name = "buffer" },
         { name = "nvim_lsp_signature_help" },
-        -- { name = "friendly-snippets" },
+        { name = "friendly-snippets" },
         {
           name = "emmet_vim",
           option = {

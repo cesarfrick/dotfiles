@@ -11,7 +11,8 @@ return {
   config = function()
     local lspconfig = require("lspconfig")
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    local nvim_lsp = require("cmp_nvim_lsp")
+    capabilities = nvim_lsp.default_capabilities(capabilities)
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
     lspconfig.inlayHints = {
@@ -125,6 +126,13 @@ return {
     --   },
     -- })
 
+    -- lspconfig.deno.setup({
+    --   root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+    --   init_options = {
+    --     lint = true,
+    --   },
+    -- })
+
     lspconfig.ts_ls.setup({
       capabilities = capabilities,
       filetypes = {
@@ -157,6 +165,8 @@ return {
           completeFunctionCalls = true,
         },
       },
+      -- root_dir = nvim_lsp.util.root_pattern("package.json"),
+      -- single_file_support = false,
     })
 
     lspconfig.taplo.setup({

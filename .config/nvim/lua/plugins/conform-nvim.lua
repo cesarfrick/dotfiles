@@ -15,7 +15,7 @@ return {
         typescriptreact = { "prettierd", "prettier", stop_after_first = true },
         html = { "htmlbeautifier", "prettierd" },
         css = { "stylelint", "prettierd", "prettier", stop_after_first = true },
-        json = { "prettierd", "prettier", stop_after_first = true },
+        json = { "fixjson", "prettierd", "prettier", stop_after_first = true },
         markdown = { "mdformat", "prettierd", "prettier", stop_after_first = true },
         bash = { "beautysh" },
         python = {

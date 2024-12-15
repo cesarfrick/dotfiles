@@ -7,6 +7,7 @@ return {
       ensure_installed = {
         "ast_grep",
         "astro",
+        -- "basedpyright",
         "bashls",
         "css_variables",
         "cssls",
@@ -17,7 +18,7 @@ return {
         "jsonls",
         "lua_ls",
         "marksman",
-        "pylsp",
+        -- "pylsp",
         -- "pylyzer",
         -- "pyright",
         -- "ruff",
