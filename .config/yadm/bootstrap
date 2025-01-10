@@ -120,30 +120,31 @@ function check_os() {
   system_type=$(uname -s)
 
 
-if [ "$system_type" == "Darwin" ]; then
-  processor="$(uname -p)"
+  if [ "$system_type" == "Darwin" ]; then
+    processor="$(uname -p)"
 
-  cd "$HOME"
+    cd "$HOME"
 
-  if [ "$processor" == "arm" ] || [ "$processor" == "arm64" ]; then
-    echo "======= Installing Rosetta for ARM ======"
-    softwareupdate --install-rosetta --agree-to-license
-  f i
+    if [ "$processor" == "arm" ] || [ "$processor" == "arm64" ]; then
+      echo "======= Installing Rosetta for ARM ======"
+      softwareupdate --install-rosetta --agree-to-license
+    fi
 
-  echo "====== Installing Oh My ZSH ======"
-  yadm submodule update --recursive --init
+    echo "====== Installing Oh My ZSH ======"
+    yadm submodule update --recursive --init
 
-  if ! command -v brew >/dev/null 2>&1; then
-    echo "====== Installing Homebrew ======"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    if ! command -v brew >/dev/null 2>&1; then
+      echo "====== Installing Homebrew ======"
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+
+    if [ -f "$HOME/.Brewfile" ]; then
+      echo "====== Updating Homebrew bundle ======"
+      brew bundle --global
+    fi
   fi
-
-  if [ -f "$HOME/.Brewfile" ]; then
-    echo "====== Updating Homebrew bundle ======"
-    brew bundle --global
-  fi
-fi
 }
+
 function main() {
 
   [ -n "$1" ] && REPO_URL="$1"
