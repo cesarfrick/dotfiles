@@ -148,17 +148,17 @@ function check_os() {
 
 function main() {
 
-  [ -n "$1" ] && REPO_URL="$1"
-  [ -n "$2" ] && YADM_RELEASE="$2"
-  [ -z "$REPO_URL" ] && build_url
-  [ -z "$REPO_URL" ] && echo "Unable to determine the repo URL" && exit 1
+  # [ -n "$1" ] && REPO_URL="$1"
+  # [ -n "$2" ] && YADM_RELEASE="$2"
+  # [ -z "$REPO_URL" ] && build_url
+  # [ -z "$REPO_URL" ] && echo "Unable to determine the repo URL" && exit 1
+  #
+  # echo "Using URL: $REPO_URL"
+  # remote_yadm clone "$REPO_URL"
 
-  echo "Using URL: $REPO_URL"
-  remote_yadm clone "$REPO_URL"
-
-  ask_about_source
+  # ask_about_source
   check_os
 
 }
 
-main "$@"
+main
