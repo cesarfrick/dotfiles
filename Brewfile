@@ -6,8 +6,6 @@ tap "ngrok/ngrok"
 tap "oven-sh/bun"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
-# C library of Git core methods that is re-entrant and linkable
-brew "libgit2@1.7"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # C/C++ and Java libraries for Unicode and globalization
@@ -20,8 +18,6 @@ brew "certifi"
 brew "delve"
 # Diff that understands syntax
 brew "difftastic"
-# C library of Git core methods that is re-entrant and linkable
-brew "libgit2"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find
@@ -44,6 +40,10 @@ brew "gnu-sed"
 brew "gum"
 # Simple terminal UI for git commands
 brew "lazygit"
+# C library of Git core methods that is re-entrant and linkable
+brew "libgit2"
+# C library of Git core methods that is re-entrant and linkable
+brew "libgit2@1.7"
 # Library for computing electron repulsion integrals efficiently
 brew "libint"
 # YAML Parser
@@ -80,6 +80,8 @@ brew "shellcheck"
 brew "starship"
 # Terminal multiplexer
 brew "tmux"
+# Program that allows you to count code, quickly
+brew "tokei"
 # Internet file retriever
 brew "wget"
 # Bring your favorite shell wherever you go through the ssh
@@ -88,6 +90,8 @@ brew "xxh"
 brew "yarn"
 # Blazing fast terminal file manager written in Rust, based on async I/O
 brew "yazi"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
 # Pluggable terminal workspace, with terminal multiplexer as the base feature
 brew "zellij"
 # Shell extension to navigate your filesystem faster
@@ -112,14 +116,14 @@ cask "font-fira-code-nerd-font"
 cask "font-fira-mono-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-meslo-lg-nerd-font"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Open-source keystroke visualiser
 cask "keycastr"
 # Control your tools with a few keystrokes
 cask "raycast"
-# GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "wezterm"
 mas "Advanced Screen Share", id: 1597458111
 mas "Dato", id: 1470584107
 mas "Keynote", id: 409183694
