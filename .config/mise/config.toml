@@ -1,9 +1,9 @@
 [tools]
-node = "latest"
+node = "23.5.0"
 watchexec = "latest"
 usage = "latest"
 go = "latest"
-python = ["latest", "2.7"]
+python = "3.13.0"
 deno = "latest"
 java = "latest"
 
