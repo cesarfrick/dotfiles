@@ -143,6 +143,7 @@ function check_os() {
       brew bundle --global
     fi
   fi
+
 }
 
 function main() {
