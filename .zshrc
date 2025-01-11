@@ -27,7 +27,8 @@ export TMUXIFIER="$HOME/.tmuxifier/bin"
 # export PATH="$HOME/.tmuxifier/bin:$PATH"
 export PATH="$ZSH:$FLUTTER:$PUB:$TMUXIFIER:$GOPATH:$GOBIN:$PATH"
 
-. /Users/frickmijares/.zcompletion
+. "$HOME/.zcompletion"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(fzf --zsh)"
 eval "$(mise activate zsh)"
 eval "$(mise completion zsh)"
