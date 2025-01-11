@@ -130,9 +130,6 @@ function check_os() {
       softwareupdate --install-rosetta --agree-to-license
     fi
 
-    echo "====== Installing Oh My ZSH ======"
-    yadm submodule update --recursive --init
-
     if ! command -v brew >/dev/null 2>&1; then
       echo "====== Installing Homebrew ======"
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -142,6 +139,12 @@ function check_os() {
       echo "====== Updating Homebrew bundle ======"
       brew bundle --global
     fi
+
+    source $HOME/.zshrc
+
+    echo "====== Installing Oh My ZSH ======"
+    yadm submodule update --recursive --init
+
   fi
 
 }
