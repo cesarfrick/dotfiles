@@ -1,12 +1,24 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  enabled = false,
   branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
-    -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    "3rd/image.nvim",            -- Optional image support in preview window: See `# Preview Mode` for more information
   },
+  opts = function(_, opts)
+    local function on_move(data)
+      Snacks.rename.on_rename_file(data.source, data.destination)
+    end
+    local events = require("neo-tree.events")
+    opts.event_handlers = opts.event_handlers or {}
+    vim.list_extend(opts.event_handlers, {
+      { event = events.FILE_MOVED,   handler = on_move },
+      { event = events.FILE_RENAMED, handler = on_move },
+    })
+  end,
   config = function()
     local ntcommand = require("neo-tree.command")
     local map = vim.keymap.set
@@ -22,10 +34,10 @@ return {
         statusline = false,
         source = "filesystem",
         -- sources = {
-        -- 	{ source = "filesystem" },
-        -- 	{ source = "git_status" },
-        -- 	{ source = "buffers" },
-        -- 	{ source = "document_symbols" },
+        --   { source = "filesystem" },
+        --   { source = "git_status" },
+        --   { source = "buffers" },
+        --   { source = "document_symbols" },
         -- },
       },
       close_if_last_window = true,
@@ -33,7 +45,6 @@ return {
         enable_git_status = true,
         enable_diagnostics = true,
         open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline", "egdy" },
-        border = "rounded",
       },
       filesystem = {
         follow_current_file = { enabled = true },
@@ -63,7 +74,7 @@ return {
           folder_empty = "󰜌",
         },
         indent = {
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+          -- with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
           file_nesting = true,
           expander_collapsed = "",
           expander_expanded = "",
@@ -104,7 +115,7 @@ return {
     )
     map(
       "n",
-      "<leader>fg",
+      "<leader>ng",
       function()
         ntcommand.execute({ toggle = true, source = "git_status", position = "float" })
       end,
@@ -113,7 +124,7 @@ return {
     )
     map(
       "n",
-      "<leader>fb",
+      "<leader>nb",
       function()
         ntcommand.execute({ toggle = true, source = "buffers", position = "float" })
       end,
@@ -122,7 +133,7 @@ return {
     )
     map(
       "n",
-      "<leader>ff",
+      "<leader>nf",
       function()
         ntcommand.execute({ toggle = true, source = "filesystem", position = "float" })
       end,

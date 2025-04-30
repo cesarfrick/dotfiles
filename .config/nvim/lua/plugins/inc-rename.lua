@@ -1,22 +1,21 @@
 return {
   "smjonas/inc-rename.nvim",
   cmd = "IncRename",
-  -- enabled = false,
+  enabled = false,
   keys = {
     {
-      "<leader>cr",
+      "<leader>cn",
       function()
         return ":IncRename " .. vim.fn.expand("<cword>")
       end,
       desc = "Incremental rename",
-      mode = { "x", "n" },
-      noremap = true,
+      mode = "n",
+      -- noremap = true,
       expr = true,
     },
   },
   config = true,
   opts = {
-    -- input_buffer_type = "dressing",
-    input_buffer_type = "noice",
+    input_buffer_type = "dressing",
   },
 }

@@ -1,7 +1,6 @@
 return {
   "folke/edgy.nvim",
   event = "VeryLazy",
-  enabled = true,
   init = function()
     vim.opt.laststatus = 3
     vim.opt.splitkeep = "screen"
@@ -10,32 +9,49 @@ return {
     bottom = {
       -- toggleterm / lazyterm at the bottom with a height of 40% of the screen
       {
-        ft = "toggleterm",
+        ft = "snacks_terminal",
         size = { height = 0.4 },
         -- exclude floating windows
-        filter = function(_, win)
-          return vim.api.nvim_win_get_config(win).relative == ""
+        -- filter = function(_, win)
+        --   return vim.api.nvim_win_get_config(win).relative == ""
+        -- end,
+        title = "%{b:snacks_terminal.id}: %{b:term_title}",
+        filter = function(_buf, win)
+          return vim.w[win].snacks_win
+              and vim.w[win].snacks_win.position == pos
+              and vim.w[win].snacks_win.relative == "editor"
+              and not vim.w[win].trouble_preview
         end,
       },
-      -- {
-      -- 	ft = "lazyterm",
-      -- 	title = "LazyTerm",
-      -- 	size = { height = 0.4 },
-      -- 	filter = function(buf)
-      -- 		return not vim.b[buf].lazyterm_cmd
-      -- 	end,
-      -- },
+      {
+        ft = "lazyterm",
+        title = "LazyTerm",
+        size = { height = 0.4 },
+        filter = function(buf)
+          return not vim.b[buf].lazyterm_cmd
+        end,
+      },
       "Trouble",
-      { ft = "qf",            title = "QuickFix" },
+      {
+        ft = "qf",
+        title = "QuickFix",
+      },
       {
         ft = "help",
-        size = { height = 20 },
+        size = {
+          height = 30,
+        },
         -- only show help buffers
         filter = function(buf)
           return vim.bo[buf].buftype == "help"
         end,
       },
-      { ft = "spectre_panel", size = { height = 0.4 } },
+      {
+        ft = "spectre_panel",
+        size = {
+          height = 0.4,
+        },
+      },
       -- "Noice",
       -- { ft = "noice", size = { height = 0.4 } },
     },
@@ -73,19 +89,17 @@ return {
     -- 	-- 	open = "SymbolsOutlineOpen",
     -- 	-- },
     -- 	-- any other neo-tree windows
-    -- 	-- "neo-tree",
+    -- 	"neo-tree",
     -- },
     right = {
       {
         title = "Symbols",
         ft = "Outline",
-        size = { height = 0.5, width = 0.3 },
+        size = {
+          height = 0.5,
+          width = 0.3,
+        },
       },
-      -- {
-      -- 	-- title = "Symbols (Trouble)",
-      -- 	ft = "trouble",
-      -- 	size = { height = 0.5, width = 0.3 },
-      -- },
     },
   },
 }

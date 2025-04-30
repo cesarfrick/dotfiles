@@ -8,21 +8,12 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-path",
-    "hrsh7th/cmp-cmdline",
+    "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
     "Exafunction/codeium.nvim",
-    "dcampos/cmp-emmet-vim",
-    {
-      "garymjr/nvim-snippets",
-      opts = {
-        friendly_snippets = true,
-      },
-      dependencies = {
-        "rafamadriz/friendly-snippets",
-      },
-    },
   },
   config = function()
     local cmp = require("cmp")
@@ -41,38 +32,19 @@ return {
       completion = {
         completeop = "menu,menuone,preview,noselect",
       },
-      sources = cmp.config.sources({
+      sources = {
         { name = "nvim_lsp" },
         { name = "codeium" },
         { name = "path" },
-        { name = "cmdline" },
         { name = "buffer" },
         { name = "nvim_lsp_signature_help" },
         { name = "friendly-snippets" },
-        {
-          name = "emmet_vim",
-          option = {
-            filetypes = {
-              "html",
-              "css",
-              "scss",
-              "javascript",
-              "javascriptreact",
-              "typescript",
-              "typescriptreact",
-              "vue",
-              "svelte",
-              "jinja",
-              "jinja.html",
-            },
-          },
-        },
-        {
-          name = "cmp_tabnine",
-          group_index = 1,
-          priority = 100,
-        },
-      }),
+        -- {
+        -- 	name = "cmp_tabnine",
+        -- 	group_index = 1,
+        -- 	priority = 100,
+        -- },
+      },
       snippet = {
         expand = function(args)
           vim.snippet.expand(args.body)
@@ -82,8 +54,10 @@ return {
         fields = { "abbr", "kind", "menu" },
         expandable_indicator = true,
         format = lspkind.cmp_format({
+          mode = "symbol_text",
           maxwidth = 50,
           ellipsis_char = "...",
+          symbol_map = { Codeium = "" },
           show_labelDetails = true,
         }),
       },

@@ -1,19 +1,134 @@
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
-  enabled = true,
   dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
-    { "antosha417/nvim-lsp-file-operations", config = true },
+    {
+      "antosha417/nvim-lsp-file-operations",
+      config = true,
+    },
+    "mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
   },
   config = function()
     local lspconfig = require("lspconfig")
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local nvim_lsp = require("cmp_nvim_lsp")
-    capabilities = nvim_lsp.default_capabilities(capabilities)
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    local util = require("lspconfig/util")
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local navic = require("nvim-navic")
+    local lsp_servers = {
+      astro = {
+        cmd = { "astro-ls", "--stdio" },
+        filetypes = { "astro" },
+      },
+      basedpyright = {
+        analysis = {
+          diagnosticMode = "openFilesOnly",
+          typecheckingMode = "basic",
+          useLibraryCodeForTypes = true,
+        },
+      },
+      gopls = {
+        cmd = { "gopls", "serve" },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+      },
+      jinja_lsp = {
+        name = "jinja-lsp",
+        cmd = { "/Users/frickmijares/.cargo/bin/jinja-lsp" },
+        filetypes = { "jinja", "jinja.html", "jinja2", "jinja2.html" },
+        settings = {
+          jinja_lsp = {
+            enable = true,
+          },
+        },
+      },
+      lua_ls = {
+        settings = {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = "LuaJIT",
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { "vim" },
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+              -- Do not send telemetry data containing a randomized but unique identifier
+              enable = false,
+            },
+            hint = {
+              enable = true,
+            },
+          },
+        },
+      },
+      -- pyright = {
+      --   settings = {
+      --     pyright = {
+      --       autoImportCompletion = true,
+      --     },
+      --     python = {
+      --       analysis = {
+      --         autoSearchPaths = true,
+      --         diagnosticMode = "openFilesOnly",
+      --         useLibraryCodeForTypes = true,
+      --         -- typeCheckingMode = "off",
+      --         diagnosticSeverityOverrides = {
+      --           reportOptionalSubscript = "information",
+      --         },
+      --       },
+      --     },
+      --   },
+      -- },
+      ts_ls = {
+        -- root_dir = util.root_pattern("package.json"),
+        root_markers = { "package.json" },
+        workspace_required = true,
+        single_file_support = false,
+        filetypes = {
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+        },
+        cmd = { "typescript-language-server", "--stdio" },
+        settings = {
+          typescript = {
+            format = {
+              enable = true,
+            },
+            diagnostics = {
+              enable = true,
+            },
+          },
+          javascript = {
+            format = {
+              enable = true,
+            },
+            diagnostics = {
+              enable = true,
+            },
+          },
+          completions = {
+            completeFunctionCalls = true,
+          },
+        },
+      },
+
+      denols = {
+        -- root_dir = util.root_pattern("deno.json", "deno.jsonc"),
+        root_markers = { "deno.json", "deno.jsonc" },
+        workspace_required = true,
+        init_options = { config = "./deno.jsonc", lint = true },
+      },
+    }
 
     lspconfig.inlayHints = {
       includeInlayParameterNameHints = "all",
@@ -25,189 +140,21 @@ return {
       includeInlayEnumMemberValueHints = true,
     }
 
-    lspconfig.codelens = {
-      enabled = true,
-    }
+    for server_name, config in pairs(lsp_servers) do
+      config.capabilities = capabilities
 
-    -- require("lspconfig.configs").vtsls = require("vtsls").lspconfig
-    lspconfig.emmet_language_server.setup({})
+      config.on_attach = function(client, bufnr)
+        if config.mappings then
+          require("config.mappings").lsp_mappings(bufnr)
+        end
 
-    lspconfig.astro.setup({
-      cmd = { "astro-ls", "--stdio" },
-      capabilities = capabilities,
-      filetypes = { "astro" },
-    })
+        if client.server_capabilities.documentSymbolProvider then
+          navic.attach(client, bufnr)
+        end
+      end
 
-    lspconfig.cssls.setup({
-      capabilities = capabilities,
-    })
-
-    lspconfig.lua_ls.setup({
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = "LuaJIT",
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { "vim" },
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-          telemetry = {
-            -- Do not send telemetry data containing a randomized but unique identifier
-            enable = false,
-          },
-          hint = {
-            enable = true,
-          },
-        },
-      },
-    })
-
-    -- lspconfig.ruff.setup({
-    -- 	init_options = {
-    -- 		setting = {
-    -- 			lint = {
-    -- 				preview = true,
-    -- 				pyflakes = {
-    -- 					allowedUnusedImports = {
-    -- 						"bracket.app",
-    -- 						"kintaro_preview_external.*",
-    -- 					},
-    -- 				},
-    -- 			},
-    -- 		},
-    -- 	},
-    -- })
-
-    -- lspconfig.basedpyright.setup({
-    --   basedpyright = {
-    --     disableOrganizeImports = true,
-    --     openFilesOnly = true,
-    --     analysis = {
-    --       autoImportCompletion = true,
-    --       autoSearchPaths = true,
-    --       useLibraryCodeForTypes = true,
-    --       diagnosticMode = "openFilesOnly",
-    --       typeCheckingMode = "basic",
-    --       diagnosticSeverityOverrides = {
-    --         reportOptionalSubscript = "ignore",
-    --       },
-    --     },
-    --   },
-    -- })
-
-    -- lspconfig.pyright.setup({
-    --   capabilities = capabilities,
-    --   settings = {
-    --     pyright = {
-    --       autoImportCompletion = true,
-    --       disableOrganizeImports = true,
-    --     },
-    --     python = {
-    --       analysis = {
-    --         ignore = { "*" },
-    --       },
-    --       -- analysis = {
-    --       --   autoSearchPaths = true,
-    --       --   diagnosticMode = "openFilesOnly",
-    --       --   useLibraryCodeForTypes = true,
-    --       --   typeCheckingMode = "off",
-    --       --   diagnosticSeverityOverrides = {
-    --       --     reportOptionalSubscript = "information",
-    --       --   },
-    --       -- },
-    --     },
-    --   },
-    -- })
-
-    -- lspconfig.deno.setup({
-    --   root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-    --   init_options = {
-    --     lint = true,
-    --   },
-    -- })
-
-    lspconfig.ts_ls.setup({
-      capabilities = capabilities,
-      filetypes = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-      },
-      cmd = { "typescript-language-server", "--stdio" },
-      settings = {
-        typescript = {
-          format = {
-            enable = true,
-          },
-          diagnostics = {
-            enable = true,
-          },
-        },
-        javascript = {
-          format = {
-            enable = true,
-          },
-          diagnostics = {
-            enable = true,
-          },
-        },
-        completions = {
-          completeFunctionCalls = true,
-        },
-      },
-      -- root_dir = nvim_lsp.util.root_pattern("package.json"),
-      -- single_file_support = false,
-    })
-
-    lspconfig.taplo.setup({
-      filetypes = { "toml" },
-      root_dir = require("lspconfig.util").root_pattern("*.toml", ".git"),
-    })
-
-    -- lspconfig.vtsls.setup({
-    --   capabilities = capabilities,
-    --   filetypes = {
-    --     "typescript",
-    --     "typescriptreact",
-    --     "typescript.tsx",
-    --     -- 'javascript',
-    --     -- 'javascriptreact',
-    --     -- 'javascript.jsx',
-    --   },
-    --   -- cmd = { "typescript-language-server", "--stdio" },
-    --   cmd = { "vtsls", "--stdio" },
-    --   settings = {
-    --     typescript = {
-    --       format = {
-    --         enable = true,
-    --       },
-    --       diagnostics = {
-    --         enable = true,
-    --       },
-    --     },
-    --     -- javascript = {
-    --     --   format = {
-    --     --     enable = true,
-    --     --   },
-    --     --   diagnostics = {
-    --     --     enable = true,
-    --     --   },
-    --     -- },
-    --     completions = {
-    --       completeFunctionCalls = true,
-    --     },
-    --   },
-    -- })
+      require("lspconfig")[server_name].setup(config)
+    end
 
     vim.keymap.set("n", "<leader>cK", vim.lsp.buf.hover, { desc = "Hover" })
     vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "Go to definition" })

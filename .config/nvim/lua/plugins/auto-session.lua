@@ -1,16 +1,15 @@
 return {
   "rmagatti/auto-session",
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-  },
+  -- dependencies = {
+  --   "nvim-telescope/telescope.nvim",
+  -- },
   config = function()
     local map = vim.keymap.set
 
     require("auto-session").setup({
       auto_restore = false,
       log_level = "error",
-      suppressed_dirs = { "~/", "~/Downloads", "/", "~/Documents" },
-      allowed_dirs = { "~/prj", "~/learn" },
+      suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
     })
 
     map("n", "<leader>sS", "<cmd>SessionSearch<cr>", { desc = "Search Session" })

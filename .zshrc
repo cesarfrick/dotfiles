@@ -11,7 +11,11 @@
 
 ZSH_DISABLE_COMPFIX=true
 
+LLVM="/usr/local/opt/llvm@14/bin"
+PYTHON_BIN_PATH="$(python3 -m site --user-base)/bin"
+
 # Path to your oh-my-zsh installation.
+export BREW="/usr/local/bin/brew"
 export ZSH="$HOME/.oh-my-zsh"
 export FLUTTER="$HOME/fvm/default/bin"
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.config/gcloud/application_default_credentials.json"
@@ -21,21 +25,30 @@ export GOPATH="$HOME/.local/share/mise/installs/go/latest/"
 export GOBIN="$GOPATH/bin"
 export PUB="$HOME/.pub-cache/bin"
 export TMUXIFIER="$HOME/.tmuxifier/bin"
+export CARGO="$HOME/.cargo/bin"
+export PYENV="/usr/local/bin/pyenv"
+export LDFLAGS="-L$($BREW --prefix openssl)/lib -L$($BREW --prefix re2)/lib"
+export CPPFLAGS="-I$($BREW --prefix openssl)/include -I$($BREW --prefix re2)/include"
+export GRPC_BUILD_WITH_BORING_SSL_ASM=""
+export GRPC_PYTHON_BUILD_SYSTEM_RE2=true
+export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=true
+export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=true
+# export CFLAGS="-Wno-incompatible-function-pointer-types"
 # export CLOUDSDK_PYTHON=python2
 # export PATH="$FLUTTER:$PATH"
 # export PATH="$GOPATH/bin:$PATH"
-# export PATH="$HOME/.tmuxifier/bin:$PATH"
 export PATH="$ZSH:$FLUTTER:$PUB:$TMUXIFIER:$GOPATH:$GOBIN:$PATH"
+export PATH="$CARGO:$LLVM:$PYENV:$BREW:$PYTHON_BIN_PATH:$PATH"
 
 . "$HOME/.zcompletion"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$($BREW shellenv)"
 eval "$(fzf --zsh)"
 eval "$(mise activate zsh)"
 eval "$(mise completion zsh)"
 
-# export NVM_DIR="$HOME/.nvm"
-#   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-#   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 
 
@@ -129,7 +142,9 @@ export LANG=en_US.UTF-8
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch arm64"
+
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -154,10 +169,11 @@ DEFAULT_USER="cfrick"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# if command -v pyenv 1>/dev/null 2>&1; then
-#  eval "$(pyenv init -)"
-# fi
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+#
+if command -v pyenv 1>/dev/null 2>&1; then
+ eval "$(pyenv init -)"
+fi
 
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

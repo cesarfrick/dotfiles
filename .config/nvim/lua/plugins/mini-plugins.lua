@@ -1,22 +1,20 @@
 -- mini.nvim plugins
 --
---TODO
 return {
   { "echasnovski/mini.trailspace", event = "VeryLazy", version = "*" },
-  {
-    "echasnovski/mini.ai",
-    event = "VeryLazy",
-    version = "*",
-  },
+  { "echasnovski/mini.ai",         event = "VeryLazy", version = "*" },
+  { "echasnovski/mini.hipatterns", version = "*" },
   {
     "echasnovski/mini.diff",
+    dependencies = {
+      "echasnovski/mini.icons",
+    },
     event = "VeryLazy",
     version = "*",
     config = function()
       require("mini.diff").setup()
     end,
   },
-  { "echasnovski/mini.hipatterns", version = "*" },
   {
     "echasnovski/mini.pairs",
     dependencies = { "hrsh7th/nvim-cmp" },
@@ -29,7 +27,7 @@ return {
   { "echasnovski/mini.comment", event = "VeryLazy", version = "*" },
   {
     "echasnovski/mini.animate",
-    recommended = true,
+    -- recommended = true,
     event = "VeryLazy",
     opts = function()
       -- don't use animate when scrolling with the mouse
@@ -64,8 +62,8 @@ return {
   },
   {
     "echasnovski/mini.indentscope",
-    version = false, -- wait till new 0.7.0 release to put it back on semver
-    event = "BufReadPre",
+    version = "*", -- wait till new 0.7.0 release to put it back on semver
+    event = "BufWinEnter",
     opts = {
       -- symbol = "▏",
       symbol = "│",
@@ -95,18 +93,15 @@ return {
   },
   {
     "echasnovski/mini.surround",
-    dependencies = {
-      "echasnovski/mini.icons",
-    },
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       mappings = {
         add = "gsa",
         delete = "gsd",
-        find = "gsf",
-        find_left = "gsf",
-        highlight = "gsh",
         replace = "gsr",
+        find = "gsf",
+        find_left = "gsF",
+        highlight = "gsh",
         update_n_lines = "gsn",
       },
     },
@@ -114,25 +109,80 @@ return {
   {
     "echasnovski/mini.files",
     dependencies = {
-      "echasnovski/mini.icons",
-      version = "*",
+      { "echasnovski/mini.icons", version = "*" },
     },
     version = "*",
     config = function()
-      local mini_files = require("mini.files")
-      mini_files.setup({
+      local map = vim.keymap.set
+      local MiniFiles = require("mini.files")
+
+      MiniFiles.setup({
         windows = {
           preview = true,
         },
       })
-      local map = vim.keymap.set
 
-      map(
-        "n",
-        "<leader>m",
-        ":lua MiniFiles.open()<cr>",
-        { desc = "Open Mini Files", noremap = true, silent = true }
-      )
+      MiniFiles.get_explorer_state()
+
+      local show_dotfiles = true
+
+      local filter_show = function()
+        return true
+      end
+
+      local filter_hide = function(fs_entry)
+        return not vim.startswith(fs_entry.name, ".")
+      end
+
+      local toggle_dotfiles = function()
+        show_dotfiles = not show_dotfiles
+        local new_filter = show_dotfiles and filter_show or filter_hide
+        MiniFiles.refresh({ content = { filter = new_filter } })
+      end
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesBufferCreate",
+        callback = function(args)
+          local buf_id = args.data.buf_id
+          -- Tweak left-hand side of mapping to your liking
+          map("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "MiniFiles toggle dotfiles" })
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesActionRename",
+        callback = function(event)
+          Snacks.rename.on_rename_file(event.data.from, event.data.to)
+        end,
+      })
+      local map_split = function(buf_id, lhs, direction)
+        local rhs = function()
+          -- Make new window and set it as target
+          local cur_target = MiniFiles.get_explorer_state().target_window
+          local new_target = vim.api.nvim_win_call(cur_target, function()
+            vim.cmd(direction .. " split")
+            return vim.api.nvim_get_current_win()
+          end)
+
+          MiniFiles.set_target_window(new_target)
+        end
+
+        -- Adding `desc` will result into `show_help` entries
+        local desc = "Split " .. direction
+        map("n", lhs, rhs, { buffer = buf_id, desc = desc })
+      end
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesBufferCreate",
+        callback = function(args)
+          local buf_id = args.data.buf_id
+          -- Tweak keys to your liking
+          map_split(buf_id, "<C-s>", "belowright horizontal")
+          map_split(buf_id, "<C-v>", "belowright vertical")
+        end,
+      })
+
+      map("n", "<leader>m", ":lua MiniFiles.open()<cr>", { desc = "Open Files" })
     end,
   },
 }

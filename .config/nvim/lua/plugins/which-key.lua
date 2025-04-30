@@ -8,20 +8,25 @@ return {
   config = function()
     local wk = require("which-key")
 
+    wk.setup({
+      preset = "helix",
+      notify = true,
+    })
+
     wk.add({
-      { "<leader>T", group = "+test" },
-      { "<leader>b", group = "+buffers" },
-      { "<leader>c", group = "+code" },
-      { "<leader>d", group = "+debug" },
-      { "<leader>f", group = "+files/find" },
-      { "<leader>g", group = "+git" },
-      { "<leader>p", group = "+project" },
-      { "<leader>s", group = "+session" },
-      { "<leader>t", group = "+tabs" },
-      { "<leader>u", group = "+update" },
-      { "<leader>v", group = "+Python Environment" },
-      { "<leader>w", group = "+window" },
-      { "<leader>x", group = "+Trouble" },
+      { "<leader>T", group = "+Test" },
+      { "<leader>b", group = "+Buffers" },
+      { "<leader>c", group = "+Code" },
+      { "<leader>d", group = "+Debug" },
+      { "<leader>f", group = "+Files/+Find" },
+      { "<leader>g", group = "+Git/+Navigator" },
+      { "<leader>n", group = "+Neotree" },
+      { "<leader>r", group = "+Refactor" },
+      { "<leader>s", group = "+Session" },
+      { "<leader>t", group = "+Tabs" },
+      { "<leader>u", group = "+UI" },
+      { "<leader>w", group = "+Window/+Workspace" },
+      -- { "<leader>x", group = "+Trouble" },
     })
   end,
 }

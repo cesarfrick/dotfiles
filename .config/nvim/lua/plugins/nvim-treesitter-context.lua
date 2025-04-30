@@ -1,15 +1,23 @@
 return {
   "nvim-treesitter/nvim-treesitter-context",
-  event = "VeryLazy",
+  event = "BufReadPre",
+  opts = { mode = "cursor", max_lines = 3 },
   config = function()
-    require("treesitter-context").setup({
-      mode = 'cursor',
-      max_lines = 3,
-      line_numbers = true,
-    })
+    local map = vim.keymap.set
+    local state = true
 
-    vim.keymap.set("n", "[c", function()
-      require("treesitter-context").go_to_context(vim.v.count1)
-    end, { silent = true, desc = "Jump up to context" })
+    map("n", "<leader>cT", function()
+      local tsc = require("treesitter-context")
+      local noice = require("noice")
+
+      tsc.toggle()
+      state = not state
+
+      if state then
+        noice.notify("Treesitter Context Enabled", "info", { title = "Option" })
+      else
+        noice.notify("Treesitter Context Disabled", "info", { title = "Option" })
+      end
+    end, { desc = "Toggle Treesitter Context" })
   end,
 }

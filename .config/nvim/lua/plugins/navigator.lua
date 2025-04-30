@@ -19,45 +19,14 @@ return {
     },
   },
   config = function()
-    require("go").setup()
-    require("navigator").setup({
-      lsp_signature_help = true, -- enable ray-x/lsp_signature
-      lsp = { format_on_save = true },
-    })
+    local navigator = require("navigator")
+    local map = vim.keymap.set
 
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "go" },
-      callback = function(ev)
-        -- CTRL/control keymaps
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-i>", ":GoImport<CR>", {})
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-b>", ":GoBuild %:h<CR>", {})
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-t>", ":GoTestPkg<CR>", {})
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-c>", ":GoCoverage -p<CR>", {})
-
-        -- Opens test files
-        vim.api.nvim_buf_set_keymap(
-          0,
-          "n",
-          "A",
-          ":lua require('go.alternate').switch(true, '')<CR>",
-          { desc = "Test" }
-        ) -- Test
-        vim.api.nvim_buf_set_keymap(
-          0,
-          "n",
-          "V",
-          ":lua require('go.alternate').switch(true, 'vsplit')<CR>",
-          { desc = "Test Vertical" }
-        ) -- Test Vertical
-        vim.api.nvim_buf_set_keymap(
-          0,
-          "n",
-          "S",
-          ":lua require('go.alternate').switch(true, 'split')<CR>",
-          { desc = "Test Split" }
-        ) -- Test Split
-      end,
-      group = vim.api.nvim_create_augroup("go_autocommands", { clear = true }),
+    navigator.setup({
+      lsp_signature_help = true,
+      lsp = {
+        format_on_save = true,
+      },
     })
   end,
 }

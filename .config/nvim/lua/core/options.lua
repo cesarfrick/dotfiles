@@ -1,5 +1,7 @@
 local opt = vim.opt
 
+vim.o.sessionoptions = "localoptions"
+
 --- Indentation ---
 opt.expandtab = true
 opt.shiftwidth = 2
@@ -27,7 +29,6 @@ opt.foldnestmax = 10
 
 --- Mouse ---
 opt.mouse = "a"
-opt.mousemoveevent = true
 
 --- Clipboard ---
 opt.clipboard:append("unnamedplus")
@@ -57,6 +58,12 @@ opt.smartcase = true
 --- VSCode ---
 vim.g.vscode = true
 
---- Others ---
-vim.opt_local.conceallevel = 2
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+--- Astro ---
+vim.filetype.add({
+  extension = {
+    astro = "astro",
+    mdx = "mdx",
+  },
+})
+
+vim.treesitter.language.register("markdown", "mdx")

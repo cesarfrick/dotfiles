@@ -1,48 +1,26 @@
 return {
   "williamboman/mason-lspconfig.nvim",
+  dependencies = {
+    "williamboman/mason.nvim",
+  },
   config = function()
-    local mason_lspconfig = require("mason-lspconfig")
-
-    mason_lspconfig.setup({
+    require("mason-lspconfig").setup({
       ensure_installed = {
-        "ast_grep",
         "astro",
-        -- "basedpyright",
         "bashls",
-        "css_variables",
+        "basedpyright",
         "cssls",
+        "css_variables",
+        "cssmodules_ls",
         "emmet_language_server",
         "eslint",
+        "gopls",
         "html",
-        "jinja_lsp",
-        "jsonls",
         "lua_ls",
-        "marksman",
-        -- "pylsp",
-        -- "pylyzer",
-        -- "pyright",
-        -- "ruff",
-        "somesass_ls",
-        "taplo",
+        "stylelint_lsp",
         "ts_ls",
-        "vtsls",
         "yamlls",
       },
-    })
-
-    -- automatically install ensure_installed servers
-    mason_lspconfig.setup_handlers({
-      -- Will be called for each installed server that doesn't have
-      -- a dedicated handler.
-      --
-      function(server_name) -- default handler (optional)
-        -- https://github.com/neovim/nvim-lspconfig/pull/3232
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
-        require("lspconfig")[server_name].setup({
-
-          capabilities = capabilities,
-        })
-      end,
     })
   end,
 }

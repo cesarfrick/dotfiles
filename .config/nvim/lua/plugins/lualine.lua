@@ -25,7 +25,7 @@ return {
         lualine_c = {
           {
             "filename",
-            path = 1,
+            -- path = 2,
             cond = function()
               return vim.bo.filetype ~= "alpha"
             end,
@@ -40,26 +40,13 @@ return {
             function()
               local record_id = vim.fn.reg_recording()
               if record_id ~= "" then
-                return "recording @" .. record_id
+                return "@" .. record_id
               else
                 return ""
               end
             end,
             color = { gui = "bold", fg = highlight_color },
           },
-          {
-            "diagnostics",
-            -- symbols = {
-            --   error = icons.diagnostics.Error,
-            --   warn = icons.diagnostics.Warn,
-            --   info = icons.diagnostics.Info,
-            --   hint = icons.diagnostics.Hint,
-            -- },
-          },
-          -- {
-          --   'buffers',
-          --   show_filename_only = false,
-          -- },
         },
         lualine_x = {
           {
@@ -87,43 +74,6 @@ return {
             end,
           },
         },
-        lualine_y = {
-          {
-            "progress",
-            cond = function()
-              return vim.bo.filetype ~= "alpha"
-            end,
-          },
-        },
-        -- {
-        --   function()
-        --     return "  " .. require("dap").status()
-        --   end,
-        --   cond = function()
-        --     return package.loaded["dap"] and require("dap").status() ~= ""
-        --   end,
-        --   -- color = function()
-        --   --   return LazyVim.ui.fg("Debug")
-        --   -- end,
-        -- },
-        -- {
-        --   "diff",
-        --   -- symbols = {
-        --   --   added = icons.git.added,
-        --   --   modified = icons.git.modified,
-        --   --   removed = icons.git.removed,
-        --   -- },
-        --   source = function()
-        --     local gitsigns = vim.b.gitsigns_status_dict
-        --     if gitsigns then
-        --       return {
-        --         added = gitsigns.added,
-        --         modified = gitsigns.changed,
-        --         removed = gitsigns.removed,
-        --       }
-        --     end
-        --   end,
-        -- },
         -- lualine_a = { "mode" },
         -- lualine_b = { "branch", "diff", "diagnostics" },
         -- lualine_c = { "filename", "gitsigns", "nvim_treesitter" },

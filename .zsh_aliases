@@ -6,11 +6,13 @@ alias lg=lazygit
 alias air="$HOME/go/bin/air"
 alias v="fd -t f -H -E .git | fzf-tmux -p --reverse | xargs nvim"
 alias gs="git branch | fzf-tmux -p --reverse | xargs git switch"
+alias gsh="git log --oneline --source | fzf-tmux -p -w 80% | cut -d ' ' -f1 | xargs git show"
 alias czm="$HOME/bin/chezmoi"
 alias gauth="gcloud auth application-default login --no-launch-browser"
 alias ls="eza --icons=always"
 alias cd="z"
-alias yadm="$HOME/bin/yadm"
+alias yadm="/usr/local/bin/yadm"
+alias yz="yazi"
 
 # Nvim profile switcher
 alias lv="NVIM_APPNAME=LazyVim nvim"

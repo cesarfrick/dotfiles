@@ -1,14 +1,14 @@
 return {
   "anuvyklack/windows.nvim",
-  -- enabled = false,
+  enabled = true,
   dependencies = {
     "anuvyklack/middleclass",
     "anuvyklack/animation.nvim",
   },
   config = function()
-    vim.o.winwidth = 8
-    vim.o.winminwidth = 5
-    vim.o.equalalways = true
+    vim.o.winwidth = 10
+    vim.o.winminwidth = 10
+    vim.o.equalalways = false
     require("windows").setup()
   end,
 }

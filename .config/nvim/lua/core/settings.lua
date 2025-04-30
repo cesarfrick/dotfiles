@@ -1,20 +1,11 @@
 return {
-  theme = "catppuccin-mocha",
-  options = {
-    icons = {
-      diagnostics = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
-      },
-    },
-  },
+  theme = "catppuccin",
   plugin_paths = {
     "plugins",
     "plugins.lsp",
+    "plugins.langs",
     "plugins.dap",
-    "plugins.test",
+    "plugins.git",
     "themes",
   },
 }
