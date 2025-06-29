@@ -6,6 +6,8 @@ go = "latest"
 python = "3.9.10"
 deno = "latest"
 java = "latest"
+gcloud = "latest"
 
 [settings]
 experimental = true
+idiomatic_version_file_enable_tools = ["python", "node"]

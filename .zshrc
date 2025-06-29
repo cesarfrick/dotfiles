@@ -21,7 +21,7 @@ export FLUTTER="$HOME/fvm/default/bin"
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.config/gcloud/application_default_credentials.json"
 export XDG_CONFIG_HOME="$HOME/.config/"
 export EDITOR=nvim
-export GOPATH="$HOME/.local/share/mise/installs/go/latest/"
+export GOPATH="$HOME/.local/share/mise/installs/go/latest"
 export GOBIN="$GOPATH/bin"
 export PUB="$HOME/.pub-cache/bin"
 export TMUXIFIER="$HOME/.tmuxifier/bin"
@@ -193,18 +193,13 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 PATH=~/.console-ninja/.bin:$PATH
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
-
 eval "$(starship init zsh)"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/frickmijares/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/frickmijares/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/frickmijares/.local/share/mise/installs/gcloud/latest/path.zsh.inc' ]; then . '/Users/frickmijares/.local/share/mise/installs/gcloud/latest/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/frickmijares/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frickmijares/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/frickmijares/.local/share/mise/installs/gcloud/latest/completion.zsh.inc' ]; then . '/Users/frickmijares/.local/share/mise/installs/gcloud/latest/completion.zsh.inc'; fi
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
