@@ -61,9 +61,9 @@ return {
               -- Do not send telemetry data containing a randomized but unique identifier
               enable = false,
             },
-            hint = {
-              enable = true,
-            },
+            -- hint = {
+            --   enable = true,
+            -- },
           },
         },
       },

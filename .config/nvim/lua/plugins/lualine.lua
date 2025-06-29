@@ -23,9 +23,12 @@ return {
           },
         },
         lualine_c = {
+          -- {
+          -- 	"%f",
+          -- },
           {
             "filename",
-            -- path = 2,
+            path = 1,
             cond = function()
               return vim.bo.filetype ~= "alpha"
             end,

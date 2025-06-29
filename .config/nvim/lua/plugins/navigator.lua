@@ -10,13 +10,13 @@ return {
       ft = { "go", "gomod" },
       build = ':lua require("go.install").update_all_sync()',
     },
-    {
-      "ray-x/lsp_signature.nvim", -- Show function signature when you type
-      event = "VeryLazy",
-      config = function()
-        require("lsp_signature").setup()
-      end,
-    },
+    -- {
+    --   "ray-x/lsp_signature.nvim", -- Show function signature when you type
+    --   event = "VeryLazy",
+    --   config = function()
+    --     require("lsp_signature").setup()
+    --   end,
+    -- },
   },
   config = function()
     local navigator = require("navigator")

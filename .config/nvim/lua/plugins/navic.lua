@@ -49,13 +49,13 @@ return {
     --   on_attach = on_attach,
     -- })
 
-    lsp.ts_ls.setup({
-      on_attach = on_attach,
-    })
+    -- lsp.ts_ls.setup({
+    --   on_attach = on_attach,
+    -- })
 
-    lsp.jinja_lsp.setup({
-      on_attach = on_attach,
-    })
+    -- lsp.jinja_lsp.setup({
+    --   on_attach = on_attach,
+    -- })
 
     vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
   end,

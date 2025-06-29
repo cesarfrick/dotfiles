@@ -243,7 +243,7 @@ return {
       "<leader>e",
       function()
         Snacks.picker.explorer({
-          width = 0.2,
+          follow_file = true,
         })
       end,
     },
