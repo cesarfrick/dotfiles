@@ -121,11 +121,11 @@ return {
       desc = "Delete Buffer",
     },
     {
-      "<leader>cR",
+      "<leader>br",
       function()
         Snacks.rename.rename_file()
       end,
-      desc = "Rename File",
+      desc = "Rename Buffer",
     },
     {
       "<leader>gB",
@@ -225,13 +225,13 @@ return {
       desc = "Show Dashboard",
     },
     -- Snacks Picker
-    {
-      "<leader>cs",
-      function()
-        Snacks.picker.lsp_symbols()
-      end,
-      desc = "LSP Symbols",
-    },
+    -- {
+    --   "<leader>cs",
+    --   function()
+    --     Snacks.picker.lsp_symbols()
+    --   end,
+    --   desc = "LSP Symbols",
+    -- },
     {
       "<space><space>",
       function()
@@ -331,6 +331,7 @@ return {
             .option("background", { off = "light", on = "dark", name = "Dark Background" })
             :map("<leader>ub")
         Snacks.toggle.inlay_hints():map("<leader>uh")
+        Snacks.toggle.zoom():map("<leader>uz")
       end,
     })
   end,

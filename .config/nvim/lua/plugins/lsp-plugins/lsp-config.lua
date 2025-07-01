@@ -1,4 +1,5 @@
 return {
+  enabled = false,
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
