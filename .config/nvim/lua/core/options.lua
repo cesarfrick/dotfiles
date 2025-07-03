@@ -1,6 +1,7 @@
 local opt = vim.opt
 
 vim.o.sessionoptions = "localoptions"
+vim.lsp.inlay_hint.enable(false)
 
 --- Indentation ---
 opt.expandtab = true
@@ -60,10 +61,10 @@ vim.g.vscode = true
 
 --- Astro ---
 vim.filetype.add({
-  extension = {
-    astro = "astro",
-    mdx = "mdx",
-  },
+	extension = {
+		astro = "astro",
+		mdx = "mdx",
+	},
 })
 
 vim.treesitter.language.register("markdown", "mdx")
