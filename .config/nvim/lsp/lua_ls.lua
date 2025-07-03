@@ -1,6 +1,6 @@
 return {
-	filetypes = { "lua" },
 	cmd = { "lua-language-server" },
+	filetypes = { "lua" },
 	root_markers = {
 		".git",
 		".luacheckrc",
@@ -23,7 +23,8 @@ return {
 			},
 			diagnostics = {
 				-- Get the language server to recognize the `vim` global
-				globals = { "vim" },
+				globals = { "vim", "require" },
+				virtual_text = false,
 			},
 			workspace = {
 				-- Make the server aware of Neovim runtime files
