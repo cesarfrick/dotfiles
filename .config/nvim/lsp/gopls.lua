@@ -5,6 +5,33 @@
 --- Google's lsp server for golang.
 
 local mod_cache = nil
+local settings_conf = {
+	settings = {
+		gofumpt = true,
+		codelenses = {
+			upgrade_dependency = true,
+			vendor = true,
+			tidy = true,
+		},
+		hints = {
+			assignVariableTypes = true,
+			compositeLiteralFields = true,
+			compositeLiteralTypes = true,
+			constantValues = true,
+			functionTypeParameters = true,
+			parameterNames = true,
+			rangeVariableTypes = true,
+		},
+		analysis = {
+			nilness = true,
+			unusedparams = true,
+			useany = true,
+		},
+		usePlaceholders = true,
+		completeUnimported = true,
+		staticcheck = true,
+	},
+}
 
 ---@param fname string
 ---@return string?
@@ -42,10 +69,12 @@ return {
 			end
 		end)
 	end,
+	settings = settings_conf,
 }
 
 -- return {
 --   cmd = { "gopls", "serve" },
 --   filetypes = { "go", "gomod", "gowork", "gotmpl", "gosum" },
 --   root_markers = { "go.work", "go.mod", ".git" },
+--   settings = settings_conf,
 -- }
