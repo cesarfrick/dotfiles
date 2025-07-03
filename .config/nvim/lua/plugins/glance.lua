@@ -1,16 +1,13 @@
 return {
-  "dnlhc/glance.nvim",
-  config = function()
-    require("glance").setup({
-      -- your configuration
-    })
+	"dnlhc/glance.nvim",
+	-- cmd = "Glance",
+	config = function()
+		require("glance").setup()
 
-    local opts = { noremap = true, silent = true }
-    local map = vim.keymap.set
-
-    map("n", "gD", "<cmd>Glance definitions<CR>", opts)
-    map("n", "gY", "<cmd>Glance type_definitions<CR>", opts)
-    map("n", "gr", "<cmd>Glance references<CR>", opts)
-    map("n", "gI", "<cmd>Glance implementations<CR>", opts)
-  end,
+		local map = vim.keymap.set
+		map("n", "gD", "<cmd>Glance definitions<cr>", { desc = "Glance Definitions" })
+		map("n", "gY", "<cmd>Glance type_definitions<cr>", { desc = "Glance Type Definitions" })
+		map("n", "gR", "<cmd>Glance references<cr>", { desc = "Glance References" })
+		map("n", "gM", "<cmd>Glance implementations<cr>", { desc = "Glance Implementations" })
+	end,
 }
