@@ -1,11 +1,11 @@
 return {
-  theme = "catppuccin",
-  plugin_paths = {
-    "plugins",
-    "plugins.lsp-plugins",
-    "plugins.langs",
-    "plugins.dap",
-    "plugins.git",
-    "themes",
-  },
+	theme = "catppuccin",
+	plugin_paths = {
+		"plugins.lsp-plugins",
+		"plugins.langs",
+		"plugins.dap",
+		"plugins.git",
+		"plugins",
+		"themes",
+	},
 }

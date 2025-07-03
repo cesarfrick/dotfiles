@@ -28,10 +28,10 @@ vim.opt.hlsearch = true
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-map("n", "<leader>cp", vim.diagnostic.goto_prev, { desc = "Go to [p]revious diagnostic message" })
-map("n", "<leader>cn", vim.diagnostic.goto_next, { desc = "Go to [n]ext diagnostic message" })
-map("n", "<leader>ce", vim.diagnostic.open_float, { desc = "Show diagnostic [e]rror messages" })
-map("n", "<leader>cq", vim.diagnostic.setloclist, { desc = "Open diagnostic [q]uickfix list" })
+map("n", "<leader>cp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+map("n", "<leader>cn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+map("n", "<leader>ce", vim.diagnostic.open_float, { desc = "Show Diagnostics in a float window" })
+map("n", "<leader>cq", vim.diagnostic.setloclist, { desc = "Open Diagnostics quickfix list" })
 
 -- Move between tabs
 map("n", "<C-Left>", ":tabprevious<CR>", opts)
@@ -46,10 +46,13 @@ map("n", "<leader>tn", ":tabn<CR>", { desc = "Go to next tab" })
 map("n", "<leader>tp", ":tabp<CR>", { desc = "Go to previous tab" })
 map("n", "<leader>tf", ":tabnew %<CR>", { desc = "Open current file in new tab" })
 
---- buffers
+-- Buffers
 map({ "n", "v", "i" }, "<C-s>", "<cmd>w<CR>", { desc = "Save Buffer" })
-map({ "n", "v", "i" }, "<D-s>", "<cmd>w<CR>", { desc = "Save Buffer" })
+map({ "n", "v", "i" }, "<M-s>", "<cmd>w<CR>", { desc = "Save Buffer" })
 
+-- LSP
+map({ "x" }, "<leader>rn", vim.lsp.buf.rename, { desc = "Rename Variable" })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code  Actions" })
 -- Updates
 map("n", "<leader>ul", "<cmd>Lazy update<CR>", { desc = "Lazy Update" })
 map("n", "<leader>us", "<cmd>Lazy sync<CR>", { desc = "Lazy Sync" })

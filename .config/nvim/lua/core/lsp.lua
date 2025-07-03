@@ -2,19 +2,27 @@ vim.lsp.enable({
 	"astro",
 	"basedpyright",
 	"bashls",
+	"cssls",
+	"cssmodules_ls",
+	"css_variables",
 	"gopls",
 	"html",
 	"htmx",
 	"jinja_lsp",
 	"jsonls",
 	"lua_ls",
+	"pylsp",
+	"stylelint_lsp",
 	"taplo",
 	"ts_ls",
 	"yamlls",
 })
 
 vim.diagnostic.config({
-	virtual_lines = true,
+	-- virtual_lines = true,
+	virtual_lines = {
+		current_line = true,
+	},
 	virtual_text = false,
 	update_in_insert = false,
 	severity_sort = true,
