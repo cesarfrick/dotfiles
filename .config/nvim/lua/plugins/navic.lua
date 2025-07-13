@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 return {
 	"SmiteshP/nvim-navic",
 	-- dependencies = { "neovim/nvim-lspconfig" },

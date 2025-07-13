@@ -48,4 +48,4 @@ require("lazy").setup(register_plugins(), {
 	},
 })
 
-vim.cmd.colorscheme(settings.theme)
+require("core.after_plugins")

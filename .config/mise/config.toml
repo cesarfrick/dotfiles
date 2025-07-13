@@ -1,5 +1,5 @@
 [tools]
-node = "10.15.3"
+node = "latest"
 watchexec = "latest"
 usage = "latest"
 go = "latest"
@@ -7,6 +7,7 @@ python = "3.9.10"
 deno = "latest"
 java = "latest"
 gcloud = "latest"
+lua = "latest"
 
 [settings]
 experimental = true

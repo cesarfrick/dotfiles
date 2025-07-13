@@ -203,3 +203,9 @@ if [ -f '/Users/frickmijares/.local/share/mise/installs/gcloud/latest/completion
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/frickmijares/.config/.dart-cli-completion/zsh-config.zsh ]] && . /Users/frickmijares/.config/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+

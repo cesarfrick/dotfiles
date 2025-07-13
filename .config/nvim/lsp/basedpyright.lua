@@ -14,11 +14,14 @@ return {
 		basedpyright = {
 			analysis = {
 				autoSearchPaths = true,
+				autoImportCompletions = true,
 				diagnosticMode = "openFilesOnly",
 				typecheckingMode = "basic",
 				useLibraryCodeForTypes = true,
 				inlayHints = {
+					variableTypes = false,
 					callArgumentNames = true,
+					genericTypes = true,
 				},
 			},
 		},

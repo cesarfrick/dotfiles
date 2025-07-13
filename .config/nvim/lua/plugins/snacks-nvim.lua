@@ -10,6 +10,9 @@ return {
 		bigfile = { enabled = true },
 		dashboard = {
 			preset = {
+				pick = function(cmd, opts)
+					return LazyVim.pick(cmd, opts)()
+				end,
 				-- header = vim.g.headers[1],
 				header = [[
         ⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣤⣴⣦⣤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -260,6 +263,7 @@ return {
 					follow_file = true,
 				})
 			end,
+			desc = "Snacks Explorer",
 		},
 		{
 			"<leader>fb",
@@ -304,6 +308,13 @@ return {
 			desc = "Man Pages",
 		},
 		{
+			"<leader>fr",
+			function()
+				Snacks.picker.recent()
+			end,
+			desc = "Recent Buffers",
+		},
+		{
 			"<leader>ft",
 			function()
 				Snacks.picker.todo_comments()
@@ -316,6 +327,13 @@ return {
 				Snacks.picker.projects()
 			end,
 			desc = "Open Projects",
+		},
+		{
+			"<leader>uk",
+			function()
+				Snacks.picker.keymaps()
+			end,
+			desc = "Open Keymaps",
 		},
 	},
 	init = function()

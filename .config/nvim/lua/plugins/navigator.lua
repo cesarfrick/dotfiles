@@ -24,7 +24,7 @@ return {
 		local map = vim.keymap.set
 
 		navigator.setup({
-			lsp_signature_help = true,
+			lsp_signature_help = false,
 			lsp = {
 				format_on_save = true,
 			},

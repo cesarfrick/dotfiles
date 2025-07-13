@@ -2,6 +2,7 @@ local opt = vim.opt
 
 vim.o.sessionoptions = "localoptions"
 vim.lsp.inlay_hint.enable(false)
+vim.lsp.set_log_level("debug")
 
 --- Indentation ---
 opt.expandtab = true
@@ -64,6 +65,10 @@ vim.filetype.add({
 	extension = {
 		astro = "astro",
 		mdx = "mdx",
+		jinja = "jinja",
+		jinja2 = "jinja",
+		j2 = "jinja",
+		py = "python",
 	},
 })
 

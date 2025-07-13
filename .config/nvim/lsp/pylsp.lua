@@ -7,6 +7,7 @@
 --- See the [project's README](https://github.com/python-lsp/python-lsp-server) for installation instructions.
 ---
 --- Configuration options are documented [here](https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md).
+---
 --- In order to configure an option, it must be translated to a nested Lua table and included in the `settings` argument to the `config('pylsp', {})` function.
 --- For example, in order to set the `pylsp.plugins.pycodestyle.ignore` option:
 --- ```lua
@@ -35,5 +36,8 @@ return {
 		"requirements.txt",
 		"Pipfile",
 		".git",
+	},
+	disabled_capabilities = {
+		signatureHelpProvider = false,
 	},
 }

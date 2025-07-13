@@ -23,6 +23,6 @@ return {
 		map("x", "<leader>rv", "<cmd>Refactor extract_var<CR>", { desc = "Extract variable" })
 		map({ "n", "x" }, "<leader>ri", "<cmd>Refactor inline_var<CR>", { desc = "Inline variable" })
 		map("n", "<leader>rI", "<cmd>Refactor inline_func<CR>", { desc = "Inline function" })
-		map("n", "<leader>rbf", "<cmd>Refactor extract_block_to_file<CR>", { desc = "Extract block to file" })
+		map("n", "<leader>rb", "<cmd>Refactor extract_block_to_file<CR>", { desc = "Extract block to file" })
 	end,
 }
