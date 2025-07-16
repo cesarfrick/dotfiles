@@ -1,0 +1,20 @@
+auto-update = check
+background-blur-radius = 10
+background-opacity = 0.9
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = true
+copy-on-select = true
+font-family = "FiraCode Nerd Font Mono SemBd"
+font-size = 20
+link-url = true
+quit-after-last-window-closed = true
+quick-terminal-position = top
+macos-titlebar-style = tabs
+macos-auto-secure-input = true
+term = xterm-256color
+theme = catppuccin-mocha
+window-colorspace = display-p3
+window-save-state = always
+
+# Keybindings
+keybind = opt+space=toggle_quick_terminal
